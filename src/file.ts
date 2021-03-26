@@ -9,5 +9,6 @@ export enum ChangeStatus {
   Deleted = 'deleted',
   Modified = 'modified',
   Renamed = 'renamed',
-  Unmerged = 'unmerged'
+  Unmerged = 'unmerged',
+  Exclude = 'exclude',
 }

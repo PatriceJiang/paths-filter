@@ -62,7 +62,12 @@ export class Filter {
   }
 
   private isMatch(file: File, patterns: FilterRuleItem[]): boolean {
-    return patterns.some(
+    const excludeRules = patterns.filter( rule=>  rule.status !== undefined && rule.status.includes(ChangeStatus.Exclude));
+    const shouldExclude = (f:File) => {
+      return excludeRules.length == 0 ? false : excludeRules.some(rule => rule.isMatch(f.filename));
+    };
+
+    return !shouldExclude(file) && patterns.some(
       rule => (rule.status === undefined || rule.status.includes(file.status)) && rule.isMatch(file.filename)
     )
   }
